@@ -2,6 +2,7 @@ package com.example.foregroundserviceexample
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.KeyguardManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         val updateUIReciver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 binding.layoutId.setBackgroundColor(Color.BLACK)
+
+                val myKM = context.getSystemService(KEYGUARD_SERVICE) as KeyguardManager
+                val isPhoneLocked = myKM.isKeyguardLocked
+                println("Is phone locked $isPhoneLocked -----------------------------------")
             }
         }
         registerReceiver(updateUIReciver, filter)
